@@ -1,3 +1,3 @@
-export function cn(...args) {
+export function cn(...args: any[]) {
   return args.filter(Boolean).join(" ");
 }
