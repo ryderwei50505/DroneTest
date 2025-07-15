@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { getWrongSet, addToWrongSet, clearWrongSet } from "@/lib/wrongStorage";
+import "@/styles/globals.css";
 
 export default function DronePracticeApp() {
   const [questions, setQuestions] = useState([]);
