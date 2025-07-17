@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { getWrongSet, addToWrongSet, clearWrongSet } from "@/lib/wrongStorage";
-import "@/styles/globals.css";
 
 interface Question {
   id: string;
