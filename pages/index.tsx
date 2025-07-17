@@ -5,28 +5,36 @@ import { Button } from "@/components/ui/button";
 import { getWrongSet, addToWrongSet, clearWrongSet } from "@/lib/wrongStorage";
 import "@/styles/globals.css";
 
+interface Question {
+  id: string;
+  chapter: string;
+  question: string;
+  options: { [key: string]: string };
+  answer: string;
+}
+
 export default function DronePracticeApp() {
-  const [questions, setQuestions] = useState([]);
-  const [current, setCurrent] = useState(0);
-  const [selected, setSelected] = useState(null);
-  const [showAnswer, setShowAnswer] = useState(false);
-  const [startTime, setStartTime] = useState(null);
-  const [elapsedTime, setElapsedTime] = useState(0);
-  const [mode, setMode] = useState("normal");
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [current, setCurrent] = useState<number>(0);
+  const [selected, setSelected] = useState<string | null>(null);
+  const [showAnswer, setShowAnswer] = useState<boolean>(false);
+  const [startTime, setStartTime] = useState<number | null>(null);
+  const [elapsedTime, setElapsedTime] = useState<number>(0);
+  const [mode, setMode] = useState<"normal" | "wrong">("normal");
 
   useEffect(() => {
     fetch("/drone_exam_question_bank.json")
       .then((res) => res.json())
-      .then((data) => {
+      .then((data: Question[]) => {
         const set = getWrongSet();
-        const source = mode === "wrong" ? data.filter((q) => set.has(q.id)) : data;
+        const source = mode === "wrong" ? data.filter((q: Question) => set.has(q.id)) : data;
         setQuestions(shuffleArray(source));
         setStartTime(Date.now());
       });
   }, [mode]);
 
   useEffect(() => {
-    let timer;
+    let timer: NodeJS.Timeout;
     if (startTime) {
       timer = setInterval(() => {
         setElapsedTime(Math.floor((Date.now() - startTime) / 1000));
@@ -35,7 +43,7 @@ export default function DronePracticeApp() {
     return () => clearInterval(timer);
   }, [startTime]);
 
-  const handleSelect = (option) => {
+  const handleSelect = (option: string) => {
     if (!showAnswer) {
       setSelected(option);
       setShowAnswer(true);
@@ -51,7 +59,7 @@ export default function DronePracticeApp() {
     setShowAnswer(false);
   };
 
-  const restart = (type) => {
+  const restart = (type: "normal" | "wrong") => {
     setMode(type);
     setCurrent(0);
     setSelected(null);
@@ -124,7 +132,7 @@ export default function DronePracticeApp() {
   );
 }
 
-function shuffleArray(array) {
+function shuffleArray<T>(array: T[]): T[] {
   const arr = [...array];
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
