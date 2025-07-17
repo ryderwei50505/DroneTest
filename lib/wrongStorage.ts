@@ -3,11 +3,12 @@ export function getWrongSet() {
   const raw = localStorage.getItem("wrongSet");
   return new Set(raw ? JSON.parse(raw) : []);
 }
-export function addToWrongSet(id) {
+export function addToWrongSet(id: string | number) {
   const set = getWrongSet();
   set.add(id);
   localStorage.setItem("wrongSet", JSON.stringify([...set]));
 }
+
 export function clearWrongSet() {
   localStorage.removeItem("wrongSet");
 }
