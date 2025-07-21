@@ -1,9 +1,10 @@
-export function getWrongSet() {
-  if (typeof window === "undefined") return new Set();
+
+export function getWrongSet(): Set<string> {
   const raw = localStorage.getItem("wrongSet");
   return new Set(raw ? JSON.parse(raw) : []);
 }
-export function addToWrongSet(id: string | number) {
+
+export function addToWrongSet(id: string) {
   const set = getWrongSet();
   set.add(id);
   localStorage.setItem("wrongSet", JSON.stringify([...set]));
