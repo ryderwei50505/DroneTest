@@ -22,7 +22,7 @@ export default function DronePracticeApp() {
   const [showAnswer, setShowAnswer] = useState(false);
   const [startTime, setStartTime] = useState<number | null>(null);
   const [elapsedTime, setElapsedTime] = useState(0);
-  const [mode, setMode] = useState("normal");
+  const [hasStarted, setHasStarted] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
   const [timeUp, setTimeUp] = useState(false);
 
