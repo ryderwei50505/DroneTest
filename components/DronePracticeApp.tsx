@@ -25,6 +25,8 @@ export default function DronePracticeApp() {
   const [hasStarted, setHasStarted] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
   const [timeUp, setTimeUp] = useState(false);
+  const [mode, setMode] = useState("normal");
+
 
   useEffect(() => {
     fetch("/drone_exam_question_bank.json")
